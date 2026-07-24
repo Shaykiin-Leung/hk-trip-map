@@ -8,25 +8,21 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#0f0f0f;color:#fff;height:100vh;display:flex;flex-direction:column;overflow:hidden;user-select:none}
-/* HEADER */
 #hd{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);padding:12px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
 #hd h1{font-size:16px;font-weight:700;flex:1}#hd h1 small{font-size:10px;color:#888;font-weight:400;margin-left:6px}
 #playBtn{padding:7px 16px;border-radius:20px;border:1px solid #4ECDC4;background:rgba(78,205,196,.12);color:#4ECDC4;font-size:12px;cursor:pointer;font-weight:600;transition:all .3s;white-space:nowrap}
 #playBtn:hover{background:#4ECDC4;color:#000}
 #playBtn.running{background:#FF6B6B;border-color:#FF6B6B;color:#fff;animation:pulse 1s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-/* TABS */
 #tabs{display:flex;gap:5px;padding:8px 12px;background:#141420;overflow-x:auto;flex-shrink:0;border-bottom:1px solid #222;scrollbar-width:none}
 #tabs::-webkit-scrollbar{display:none}
 .tab{padding:5px 14px;border-radius:16px;font-size:11px;border:1px solid #333;cursor:pointer;background:transparent;color:#888;transition:all .2s;white-space:nowrap;flex-shrink:0}
 .tab:hover{border-color:#4ECDC4;color:#4ECDC4}
 .tab.active{background:#4ECDC4;color:#000;border-color:#4ECDC4;font-weight:600}
-/* LAYOUT */
 #main{display:flex;flex:1;overflow:hidden}
 #sidebar{width:360px;background:#12121c;overflow:hidden;flex-shrink:0;border-right:1px solid #222;display:flex;flex-direction:column}
 #sidebarHdr{padding:10px 14px;font-size:11px;color:#666;border-bottom:1px solid #1a1a2a;flex-shrink:0}
-#sidebarHdr strong{color:#aaa}
-#sideTime{float:right;color:#4ECDC4;font-weight:600}
+#sidebarHdr strong{color:#aaa}#sideTime{float:right;color:#4ECDC4;font-weight:600}
 #timeline{flex:1;overflow-y:auto;scroll-behavior:smooth;padding:4px 0}
 #timeline::-webkit-scrollbar{width:3px}
 #timeline::-webkit-scrollbar-thumb{background:#333;border-radius:2px}
@@ -47,49 +43,35 @@ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;backgr
 .transport-row .track .fill.active{width:100%}
 .transport-row .lbl{color:#888;white-space:nowrap}
 .transport-row .tm{color:#555;font-size:10px;white-space:nowrap}
-/* MAP */
-#mapWrap{flex:1;position:relative}
-#map{height:100%;width:100%}
+#mapWrap{flex:1;position:relative}#map{height:100%;width:100%}
 #loading{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.7);padding:6px 14px;border-radius:16px;font-size:11px;color:#888;z-index:10000;pointer-events:none;display:none}
 #curLoc{position:absolute;top:10px;right:10px;z-index:1000;background:rgba(15,15,15,.9);padding:5px 10px;border-radius:8px;font-size:10px;color:#888;border:1px solid #222;max-width:180px;display:none;line-height:1.4}
 #curLoc .name{color:#fff;font-weight:600}
-/* LEGEND */
 #legend{position:absolute;bottom:10px;right:10px;z-index:1000;background:rgba(15,15,15,.85);padding:6px 10px;border-radius:6px;font-size:10px;border:1px solid #222}
 #legend div{display:flex;align-items:center;gap:5px;margin:2px 0;color:#888}
 .lg{width:16px;height:3px;border-radius:2px;flex-shrink:0}
-/* ANIMATED DOT */
 .anim-dot{width:14px;height:14px;background:#4ECDC4;border-radius:50%;border:3px solid #fff;box-shadow:0 0 16px rgba(78,205,196,.8);z-index:10000!important;pointer-events:none;transition:none}
-/* POPUP */
 .leaflet-popup-content-wrapper{background:#1a1a2e;color:#fff;border-radius:10px;border:1px solid #333;box-shadow:0 4px 20px rgba(0,0,0,.5)}
 .leaflet-popup-tip{background:#1a1a2e}
 .leaflet-popup-content{margin:10px 12px;font-size:12px;line-height:1.5}
 .leaflet-popup-content a{color:#4ECDC4;text-decoration:none}
 .popup-note{color:#aaa;font-size:11px;margin:4px 0}
-/* Responsive */
 @media(max-width:768px){
   #main{flex-direction:column-reverse}
   #sidebar{width:100%;max-height:35vh;border-right:none;border-top:1px solid #222}
   #hd h1{font-size:14px}
 }
-@media(max-width:480px){
-  #sidebar{max-height:30vh}
-  #sidebar{width:100%}
-}
 </style>
 </head>
 <body>
-
 <div id="hd">
-  <h1>🇭🇰 香港小众轨迹 <small>7/31 – 8/1 曼城之旅</small></h1>
+  <h1>🇭🇰 香港小众轨迹 <small>7/31–8/1 曼城之旅</small></h1>
   <button id="playBtn">▶ 播放行程</button>
 </div>
 <div id="tabs"></div>
 <div id="main">
   <div id="sidebar">
-    <div id="sidebarHdr">
-      <span>📋 <strong>行程时间线</strong></span>
-      <span id="sideTime">点击播放</span>
-    </div>
+    <div id="sidebarHdr"><span>📋 <strong>行程时间线</strong></span><span id="sideTime">点击播放</span></div>
     <div id="timeline"></div>
   </div>
   <div id="mapWrap">
@@ -104,137 +86,86 @@ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;backgr
     </div>
   </div>
 </div>
-
 <script>
-// ====== TRANSPORT CONFIG ======
-const M = { mtr:'#4ECDC4', walk:'#FF9800', ferry:'#00BCD4', train:'#E91E63', wait:'#888' };
-const MI = { mtr:'🚇', walk:'🚶', ferry:'⛴️', train:'🚄', wait:'⏳' };
-
-// ====== LOCATIONS ======
-const LOCS = {
-  // === 深圳 ===
-  sz_east: {name:'深圳东站（布吉）', lat:22.6055, lng:114.1225, note:'抵达深圳东站，转地铁去福田'},
-  futian: {name:'福田站（高铁）', lat:22.522, lng:114.058, note:'换乘高铁前往香港西九龙'},
-  // === 香港交通枢纽 ===
-  hk_west: {name:'香港西九龙站', lat:22.304, lng:114.162, note:'高铁抵达，过关出站'},
-  tst_ferry: {name:'尖沙咀天星码头', lat:22.2911, lng:114.1695, note:'体验百年天星小轮'},
-  central_ferry: {name:'中环天星码头', lat:22.287, lng:114.1585, note:'抵达中环'},
-  // === Day 1 景点 ===
-  ifc: {name:'金管局55楼观景台', lat:22.2845, lng:114.1585, note:'免费270°俯瞰维港', cat:'viewpoint', url:'https://www.xiaohongshu.com/discovery/item/66ba2a2e000000001e01aeb2?xsec_token=ABxNQUisQNYDUEpnSyXio1KE6om3DqsdiEvuj62a9rkjU=&xsec_source=pc_share'},
-  central_mkt: {name:'中环街市', lat:22.2835, lng:114.1568, note:'电影《无名》同款楼梯', cat:'attraction'},
-  fringe: {name:'艺穗会', lat:22.2805, lng:114.1543, note:'红砖白条纹建筑打卡', cat:'attraction'},
-  tai_kwun: {name:'大馆', lat:22.2812, lng:114.1525, note:'前监狱改造艺术区，免费', cat:'attraction'},
-  hollywood: {name:'荷李活道壁画', lat:22.281, lng:114.1535, note:'九龙城寨壁画', cat:'attraction'},
-  st_john: {name:'圣约翰教堂', lat:22.2782, lng:114.1605, note:'百年教堂', cat:'attraction'},
-  whitenoise: {name:'White Noise Records', lat:22.3295, lng:114.1622, note:'黑胶唱片+文创', cat:'shop'},
-  ho_records: {name:'HO唱片行', lat:22.3292, lng:114.1629, note:'二手碟天堂', cat:'shop'},
-  yasu: {name:'雅俗共想（中古玩具）', lat:22.3298, lng:114.1628, note:'怀旧中古玩具', cat:'shop'},
-  wanxing: {name:'万兴制衣（手作牛仔）', lat:22.3302, lng:114.162, note:'手作牛仔体验', cat:'shop'},
-  select18: {name:'Select18', lat:22.329, lng:114.162, note:'复古选品店', cat:'shop'},
-  fineprint: {name:'FINEPRINT', lat:22.3285, lng:114.163, note:'精品咖啡', cat:'cafe'},
-  // === Day 2 ===
-  ooo: {name:'ooo.coffee（土瓜湾）', lat:22.318, lng:114.188, note:'社区咖啡店', cat:'cafe', url:'https://www.xiaohongshu.com/discovery/item/66d6e6fe000000001900d9d0?xsec_token=ABJ5rS3tCfF_RcIRMq7DJvfCQAVh1Xm64O5X11r26htLY=&xsec_source=pc_share'},
-  kai_tak: {name:'启德体育场·曼城比赛', lat:22.3304, lng:114.1952, note:'⚽ 曼城香港行 17:00开赛', cat:'stadium'},
-  // === Extra ===
-  toptown: {name:'Toptown天台酒吧', lat:22.2818, lng:114.1575, note:'中环天台夜景', cat:'bar'},
-  braemar: {name:'宝马山夜景', lat:22.2905, lng:114.2005, note:'俯瞰维港全景', cat:'viewpoint'},
+const M={mtr:'#4ECDC4',walk:'#FF9800',ferry:'#00BCD4',train:'#E91E63',wait:'#888'};
+const MI={mtr:'🚇',walk:'🚶',ferry:'⛴️',train:'🚄',wait:'⏳'};
+const LOCS={
+  sz_east:{name:'深圳东站（布吉）',lat:22.6055,lng:114.1225,note:'抵达深圳东站'},
+  futian:{name:'福田站（高铁）',lat:22.522,lng:114.058,note:'换乘高铁去香港西九龙'},
+  hk_west:{name:'香港西九龙站',lat:22.304,lng:114.162,note:'高铁抵达'},
+  tst_ferry:{name:'尖沙咀天星码头',lat:22.2911,lng:114.1695,note:'住尖沙咀'},
+  central_ferry:{name:'中环天星码头',lat:22.287,lng:114.1585,note:'抵达中环'},
+  ifc:{name:'金管局55楼观景台',lat:22.2845,lng:114.1585,note:'免费270°俯瞰维港',cat:'viewpoint',url:'https://www.xiaohongshu.com/discovery/item/66ba2a2e000000001e01aeb2?xsec_token=ABxNQUisQNYDUEpnSyXio1KE6om3DqsdiEvuj62a9rkjU=&xsec_source=pc_share'},
+  central_mkt:{name:'中环街市',lat:22.2835,lng:114.1568,note:'电影《无名》同款楼梯怀旧市集',cat:'attraction'},
+  fringe:{name:'艺穗会',lat:22.2805,lng:114.1543,note:'红砖白条纹建筑打卡',cat:'attraction'},
+  tai_kwun:{name:'大馆',lat:22.2812,lng:114.1525,note:'前监狱改造艺术区免费参观',cat:'attraction'},
+  hollywood:{name:'荷李活道壁画',lat:22.281,lng:114.1535,note:'九龙城寨壁画经典港风',cat:'attraction'},
+  whitenoise:{name:'White Noise Records',lat:22.3295,lng:114.1622,note:'黑胶唱片+文创',cat:'shop'},
+  ho_records:{name:'HO唱片行',lat:22.3292,lng:114.1629,note:'二手碟天堂',cat:'shop'},
+  yasu:{name:'雅俗共想（中古玩具）',lat:22.3298,lng:114.1628,note:'怀旧中古玩具',cat:'shop'},
+  wanxing:{name:'万兴制衣（手作牛仔）',lat:22.3302,lng:114.162,note:'手作牛仔体验',cat:'shop'},
+  fineprint:{name:'FINEPRINT',lat:22.3285,lng:114.163,note:'深水埗精品咖啡',cat:'cafe'},
+  ooo:{name:'ooo.coffee（土瓜湾）',lat:22.318,lng:114.188,note:'社区咖啡店',cat:'cafe',url:'https://www.xiaohongshu.com/discovery/item/66d6e6fe000000001900d9d0?xsec_token=ABJ5rS3tCfF_RcIRMq7DJvfCQAVh1Xm64O5X11r26htLY=&xsec_source=pc_share'},
+  kai_tak:{name:'启德体育场·曼城比赛',lat:22.3304,lng:114.1952,note:'⚽ 曼城香港行 17:00开赛',cat:'stadium'},
 };
-
-// ====== MTR STATION COORDS (荃湾线 & 东铁线) ======
-const MTR = {
-  // 荃湾线 (from Central → Tsuen Wan)
-  central: [22.2815, 114.1585],
-  admiralty: [22.279, 114.164],
-  tst_mtr: [22.297, 114.171],      // 尖沙咀站
-  jordan: [22.305, 114.171],
-  yau_ma_tei: [22.312, 114.171],
-  mongkok: [22.318, 114.169],
-  prince_edward: [22.324, 114.167],
-  sham_shui_po: [22.331, 114.162], // 深水埗站
-  // 港岛线
-  sheung_wan: [22.284, 114.153],    // 上环
-  sai_ying_pun: [22.285, 114.142], // 西营盘
-  hku: [22.283, 114.135],          // 香港大学
-  kennedy_town: [22.281, 114.127], // 坚尼地城
-  // 东铁线
-  hung_hom: [22.303, 114.187],     // 红磡
-  mongkok_east: [22.31, 114.182],  // 旺角东
-  tai_wai: [22.374, 114.181],      // 大围
-  // 屯马线
-  kai_tak_mtr: [22.328, 114.195],  // 启德站
-  to_kwa_wan: [22.316, 114.189],   // 土瓜湾站
-  // 深圳
-  shenzhen_north_mtr: [22.6135, 114.0285],
-  futian_mtr: [22.522, 114.058],   // 福田站（高铁+地铁）
-  buji: [22.604, 114.118],         // 布吉站（深圳东）
+const MTR={
+  central:[22.2815,114.1585],admiralty:[22.279,114.164],
+  tst_mtr:[22.297,114.171],jordan:[22.305,114.171],
+  yau_ma_tei:[22.312,114.171],mongkok:[22.318,114.169],
+  prince_edward:[22.324,114.167],sham_shui_po:[22.331,114.162],
+  to_kwa_wan:[22.316,114.189],kai_tak_mtr:[22.328,114.195],
+  hung_hom:[22.303,114.187]
 };
-
-// ====== ROUTE DEFINITIONS ======
-// Each step: type=stop | transport | wait
-// transport: {type, from[], via[][], to[], label, time}
-// stop: {id, label, time}
-// wait: {label, time}
-
-const SEGMENTS = {
-  // Pre-trip: Shenzhen
-  'sz_arrive': {type:'wait', label:'抵达深圳东站', time:'09:08', icon:'🚉'},
-  'sz_to_futian': {type:'transport', mode:'mtr', label:'深圳地铁3号线 布吉→福田', time:'20min',
+// ====== ROUTE SEGMENTS ======
+const SEG={
+  // === PRE-TRIP ===
+  sz_arr:{type:'wait',label:'抵达深圳东站',time:'09:08',icon:'🚉'},
+  sz_mtr:{type:'transport',mode:'mtr',label:'地铁3号线 布吉→福田',time:'20min',
     path:[[22.604,114.118],[22.586,114.118],[22.578,114.123],[22.573,114.128],[22.565,114.127],[22.554,114.127],[22.546,114.118],[22.544,114.108],[22.522,114.058]]},
-  'futian_wait': {type:'wait', label:'福田站安检过关', time:'15min', icon:'⏳'},
-  'sz_hk_train': {type:'transport', mode:'train', label:'高铁 福田→香港西九龙', time:'14min',
-    path:[[22.522,114.058],[22.47,114.09],[22.40,114.115],[22.35,114.14],[22.304,114.162]],
-    note:'G系列高铁，福田到西九龙仅14分钟'},
-  'hk_customs': {type:'wait', label:'香港西九龙站过关出站', time:'25min', icon:'🛂'},
-  // Day 1
-  'tst_arrive': {type:'stop', id:'tst_ferry', time:'10:25', note:'到达尖沙咀'},
-  'tst_to_central': {type:'transport', mode:'ferry', label:'天星小轮 尖沙咀→中环', time:'10min',
+  sz_wait:{type:'wait',label:'福田站安检过关',time:'15min',icon:'⏳'},
+  sz_train:{type:'transport',mode:'train',label:'高铁 福田→香港西九龙',time:'14min',
+    path:[[22.522,114.058],[22.47,114.09],[22.40,114.115],[22.35,114.14],[22.304,114.162]]},
+  customs:{type:'wait',label:'西九龙过关出站',time:'25min',icon:'🛂'},
+  // === DAY 1 — 九龙 ===
+  d1_drop:{type:'wait',label:'尖沙咀放行李',time:'10:40-11:00',icon:'🏨'},
+  d1_tst_ssp:{type:'transport',mode:'mtr',label:'尖沙咀→深水埗（荃湾线）',time:'10min',
+    path:[MTR.tst_mtr,MTR.jordan,MTR.yau_ma_tei,MTR.mongkok,MTR.prince_edward,MTR.sham_shui_po]},
+  d1_coffee:{type:'stop',id:'fineprint',time:'11:15-11:45'},
+  d1_ssp:{type:'stop',id:'whitenoise',time:'11:45-13:00',note:'唱片店→中古玩具一条街串游'},
+  d1_lunch:{type:'wait',label:'深水埗午餐',time:'13:00-14:00',icon:'🍜'},
+  d1_ssp_more:{type:'stop',id:'yasu',time:'14:00-15:00',note:'继续逛+咖啡'},
+  d1_ssp_tst:{type:'transport',mode:'mtr',label:'深水埗→尖沙咀（荃湾线）',time:'10min',
+    path:[MTR.sham_shui_po,MTR.prince_edward,MTR.mongkok,MTR.yau_ma_tei,MTR.jordan,MTR.tst_mtr]},
+  d1_rest:{type:'wait',label:'回住处休息',time:'15:15-16:30',icon:'🏨'},
+  d1_harbour:{type:'wait',label:'尖沙咀海滨长廊·星光大道',time:'16:30-17:30',icon:'🌇'},
+  d1_dinner:{type:'wait',label:'尖沙咀晚餐',time:'17:30-18:30',icon:'🍜'},
+  d1_night:{type:'wait',label:'维港夜景·天星小轮夜游',time:'18:30-20:00',icon:'🌃'},
+  // === DAY 2 — 港岛 + 启德 ===
+  d2_ferry:{type:'transport',mode:'ferry',label:'天星小轮 尖沙咀→中环',time:'10min',
     path:[[22.2911,114.1695],[22.288,114.164],[22.287,114.1585]]},
-  'ifc_visit': {type:'stop', id:'ifc', time:'11:15-12:00'},
-  'central_walk': {type:'transport', mode:'walk', label:'中环漫步', time:'步行串游',
-    path:[[22.2845,114.1585],[22.2835,114.1568],[22.2805,114.1543],[22.2812,114.1525],[22.281,114.1535],[22.2782,114.1605]]},
-  'central_tour': {type:'stop', id:'central_mkt', time:'12:00-13:30', note:'街市→艺穗会→大馆→壁画→教堂'},
-  'lunch': {type:'wait', label:'中环午餐', time:'13:30-14:00', icon:'🍜'},
-  'central_to_ssp': {type:'transport', mode:'mtr', label:'中环→深水埗（荃湾线）', time:'20min',
-    path:[MTR.central, MTR.admiralty, MTR.tst_mtr, MTR.jordan, MTR.yau_ma_tei, MTR.mongkok, MTR.prince_edward, MTR.sham_shui_po],
-    note:'荃湾线直达'},
-  'ssp_shop': {type:'stop', id:'whitenoise', time:'14:30-16:00', note:'唱片店→中古玩具→咖啡'},
-  'ssp_to_tst': {type:'transport', mode:'mtr', label:'深水埗→尖沙咀（荃湾线）', time:'15min',
-    path:[MTR.sham_shui_po, MTR.prince_edward, MTR.mongkok, MTR.yau_ma_tei, MTR.jordan, MTR.tst_mtr]},
-  'rest': {type:'wait', label:'回住处休息/换衣服', time:'16:15-17:00', icon:'🏨'},
-  'tst_to_northpt': {type:'transport', mode:'mtr', label:'尖沙咀→炮台山（荃湾线+港岛线）', time:'25min',
-    path:[MTR.tst_mtr, MTR.admiralty, [22.288,114.174],[22.289,114.187],[22.2905,114.194],[22.2905,114.2005]]},
-  'braemar_view': {type:'stop', id:'braemar', time:'17:30-19:00'},
-  // Day 2
-  'tst_to_tkw': {type:'transport', mode:'mtr', label:'尖沙咀→土瓜湾（屯马线）', time:'20min',
-    path:[[22.297,114.171],[22.303,114.178],[22.31,114.182],[22.316,114.189]]},
-  'ooo_visit': {type:'stop', id:'ooo', time:'15:00-16:00'},
-  'tkw_to_kt': {type:'transport', mode:'walk', label:'土瓜湾→启德（海滨步道）', time:'15min',
+  d2_bfast:{type:'wait',label:'中环早餐（兰芳园/茶餐厅）',time:'08:15-08:45',icon:'☕'},
+  d2_ifc:{type:'stop',id:'ifc',time:'08:45-09:30'},
+  d2_central:{type:'stop',id:'central_mkt',time:'09:30-11:30',note:'街市→艺穗会→大馆→壁画（步行串游）'},
+  d2_lunch:{type:'wait',label:'中环午餐',time:'11:30-12:30',icon:'🍜'},
+  d2_to_tkw:{type:'transport',mode:'mtr',label:'中环→土瓜湾（荃湾线+屯马线）',time:'25min',
+    path:[MTR.central,MTR.admiralty,MTR.tst_mtr,MTR.hung_hom,MTR.to_kwa_wan]},
+  d2_ooo:{type:'stop',id:'ooo',time:'12:45-13:45'},
+  d2_to_kt:{type:'transport',mode:'walk',label:'土瓜湾→启德（海滨步行）',time:'15min',
     path:[[22.318,114.188],[22.322,114.19],[22.325,114.192],[22.3304,114.1952]]},
-  'kai_tak_game': {type:'stop', id:'kai_tak', time:'16:00-21:30', note:'⚽ 曼城比赛！早起可加场'},
+  d2_prematch:{type:'wait',label:'启德体育场周边逛逛+入场',time:'14:00-16:45',icon:'⚽'},
+  d2_match:{type:'stop',id:'kai_tak',time:'17:00-21:30'},
+  d2_back:{type:'transport',mode:'mtr',label:'启德→尖沙咀（屯马线+荃湾线）',time:'20min',
+    path:[MTR.kai_tak_mtr,MTR.hung_hom,MTR.tst_mtr]},
 };
 
 // ====== ROUTES ======
-const ROUTES = [
+const ROUTES=[
   {
-    key:'day1',
-    name:'Day 1 港岛+深水埗',
-    color:'#4ECDC4',
-    segs:['sz_arrive','sz_to_futian','futian_wait','sz_hk_train','hk_customs','tst_arrive','tst_to_central','ifc_visit','central_walk','central_tour','lunch','central_to_ssp','ssp_shop','ssp_to_tst','rest','tst_to_northpt','braemar_view']
-  },
-  {
-    key:'day1alt',
-    name:'Day 1 替代·天台酒吧',
-    color:'#FFD93D',
-    segs:['sz_arrive','sz_to_futian','futian_wait','sz_hk_train','hk_customs','tst_arrive','tst_to_central','ifc_visit','central_walk','central_tour','lunch','central_to_ssp','ssp_shop','ssp_to_tst','rest',
-      {type:'transport',mode:'mtr',label:'尖沙咀→中环（荃湾线）',time:'15min',path:[MTR.tst_mtr,MTR.admiralty,MTR.central]},
-      {type:'stop',id:'toptown',time:'18:00-20:00'},
-      {type:'transport',mode:'ferry',label:'中环→尖沙咀（天星小轮）',time:'10min',path:[[22.287,114.1585],[22.289,114.164],[22.2911,114.1695]]}]
-  },
-  {
-    key:'day2',
-    name:'Day 2 启德看球',
-    color:'#FF6B6B',
-    segs:['tst_to_tkw','ooo_visit','tkw_to_kt','kai_tak_game']
+    key:'day1',name:'Day 1 九龙懒人游',color:'#4ECDC4',
+    segs:['sz_arr','sz_mtr','sz_wait','sz_train','customs','d1_drop','d1_tst_ssp','d1_coffee','d1_ssp','d1_lunch','d1_ssp_more','d1_ssp_tst','d1_rest','d1_harbour','d1_dinner','d1_night']
+  },{
+    key:'day2',name:'Day 2 港岛+启德看球',color:'#FF6B6B',
+    segs:['d2_ferry','d2_bfast','d2_ifc','d2_central','d2_lunch','d2_to_tkw','d2_ooo','d2_to_kt','d2_prematch','d2_match','d2_back']
   },
 ];
 
@@ -242,325 +173,116 @@ const ROUTES = [
 function loc(id){return LOCS[id];}
 function lerp(a,b,t){return a+(b-a)*t;}
 function lerpP(a,b,t){return[lerp(a[0],b[0],t),lerp(a[1],b[1],t)];}
-function dist2(a,b){const dx=a[0]-b[0],dy=a[1]-b[1];return dx*dx+dy*dy;}
-function totalLen(pts){let d=0;for(let i=1;i<pts.length;i++)d+=Math.sqrt(dist2(pts[i-1],pts[i]));return d;}
+function totalLen(pts){let d=0;for(let i=1;i<pts.length;i++)d+=Math.sqrt((pts[i][0]-pts[i-1][0])**2+(pts[i][1]-pts[i-1][1])**2);return d;}
+function getSeg(sid){return SEG[sid]||sid;}
+let map,curRoute=null,markers=[],lines=[],playing=false,stepIdx=0,dot=null,curLocEl=null;
 
-// ====== STATE ======
-let map, curRoute=null;
-let markers=[], lines=[];
-let playing=false, stepIdx=0, animTimer=null;
-let dot=null, curLocEl=null;
-
-// ====== BUILD POLYLINE FROM PATH ======
-function pathToLatLng(path){return path.map(p=>[p[0],p[1]]);}
-
-// ====== GET SEGMENT CONTENT ======
-function getSeg(sid){
-  if(typeof sid==='object') return sid;
-  return SEGMENTS[sid];
-}
-
-// ====== DRAW ROUTE ======
-function draw(routeIdx){
-  clearMap();
-  curRoute=routeIdx;
-  const R=ROUTES[routeIdx];
-  
-  // Tabs
-  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===routeIdx));
-  
-  // Build timeline
-  const tl=document.getElementById('timeline');
-  tl.innerHTML='';
-  let stepNum=0;
-  
+function draw(rIdx){
+  clearMap();curRoute=rIdx;
+  const R=ROUTES[rIdx];
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===rIdx));
+  const tl=document.getElementById('timeline');tl.innerHTML='';
+  let num=0;
   R.segs.forEach((sid,i)=>{
-    const s=getSeg(sid);
-    if(!s) return;
-    
+    const s=getSeg(sid);if(!s) return;
     if(s.type==='stop'){
-      const l=loc(s.id);
-      if(!l) return;
-      const div=document.createElement('div');
-      div.className='step';div.dataset.idx=i;div.dataset.stop=s.id;
-      div.innerHTML=`<div class="num">${++stepNum}</div>
-        <div class="info">
-          <span class="nm">📍 ${l.name}</span>
-          <span class="tm">${s.time||''}</span>
-          <span class="desc">${s.note||l.note||''}</span>
-        </div>`;
-      div.onclick=()=>{clearAnim();focusLoc(s.id);};
-      tl.appendChild(div);
+      const l=loc(s.id);if(!l)return;
+      const d=document.createElement('div');d.className='step';d.dataset.idx=i;d.dataset.stop=s.id;
+      d.innerHTML=`<div class="num">${++num}</div><div class="info"><span class="nm">📍 ${l.name}</span><span class="tm">${s.time||''}</span><span class="desc">${s.note||l.note||''}</span></div>`;
+      d.onclick=()=>{clearAnim();focusLoc(s.id);};tl.appendChild(d);
     } else if(s.type==='wait'){
-      const div=document.createElement('div');
-      div.className='step';div.dataset.idx=i;
-      div.innerHTML=`<div class="num">${++stepNum}</div>
-        <div class="info">
-          <span class="nm">${s.icon||'⏳'} ${s.label}</span>
-          <span class="tm">${s.time||''}</span>
-          ${s.note?`<span class="desc">${s.note}</span>`:''}
-        </div>`;
-      div.onclick=()=>{clearAnim();scrollTo(i);};
-      tl.appendChild(div);
+      const d=document.createElement('div');d.className='step';d.dataset.idx=i;
+      d.innerHTML=`<div class="num">${++num}</div><div class="info"><span class="nm">${s.icon||'⏳'} ${s.label}</span><span class="tm">${s.time||''}</span></div>`;
+      d.onclick=()=>{clearAnim();scrollTo(i);};tl.appendChild(d);
     } else if(s.type==='transport'){
-      const div=document.createElement('div');
-      div.className=`transport-row`;
-      div.dataset.idx=i;
-      const color=M[s.mode]||'#666';
-      div.innerHTML=`<span>${MI[s.mode]||'🚆'}</span>
-        <div class="track" style="background:${color}33"><div class="fill" style="background:${color}"></div></div>
-        <span class="lbl">${s.label}</span>
-        <span class="tm">${s.time}</span>`;
-      tl.appendChild(div);
+      const d=document.createElement('div');d.className='transport-row';d.dataset.idx=i;
+      const c=M[s.mode]||'#666';
+      d.innerHTML=`<span>${MI[s.mode]||'🚆'}</span><div class="track" style="background:${c}33"><div class="fill" style="background:${c}"></div></div><span class="lbl">${s.label}</span><span class="tm">${s.time}</span>`;
+      tl.appendChild(d);
     }
   });
-  
-  // Draw markers and lines
+  // Draw map
   let prevPt=null;
   R.segs.forEach((sid,i)=>{
-    const s=getSeg(sid);
-    if(!s) return;
-    
+    const s=getSeg(sid);if(!s)return;
     if(s.type==='stop'){
-      const l=loc(s.id);
-      if(!l) return;
-      const color=l.cat==='stadium'?'#ff0':l.cat==='viewpoint'?'#4ECDC4':l.cat==='cafe'?'#FF9800':l.cat==='shop'?'#C44FFF':l.cat==='bar'?'#FFD93D':'#888';
-      const sz=l.id==='kai_tak'?12:8;
-      const m=L.circleMarker([l.lat,l.lng],{
-        radius:sz,color:'#fff',weight:2,fillColor:color,fillOpacity:.9
-      }).addTo(map);
-      const popup=`<b>${l.name}</b>${l.cat?`<br><span style="color:#888;font-size:11px">${l.cat}</span>`:''}
-        ${l.note?`<div class="popup-note">${l.note}</div>`:''}
-        ${l.url?`<br><a href="${l.url}" target="_blank">📕 小红书笔记→</a>`:''}`;
-      m.bindPopup(popup);
-      markers.push(m);
-      prevPt=[l.lat,l.lng];
-    } else if(s.type==='transport' && s.path && s.path.length>0){
-      const pts=pathToLatLng(s.path);
-      const color=M[s.mode]||'#666';
-      const line=L.polyline(pts,{color,weight:3,opacity:.8}).addTo(map);
-      lines.push(line);
-      // Transport marker on mid point
+      const l=loc(s.id);if(!l)return;
+      const cc=l.cat==='stadium'?'#ff0':l.cat==='viewpoint'?'#4ECDC4':l.cat==='cafe'?'#FF9800':l.cat==='shop'?'#C44FFF':'#888';
+      const m=L.circleMarker([l.lat,l.lng],{radius:l.id==='kai_tak'?12:8,color:'#fff',weight:2,fillColor:cc,fillOpacity:.9}).addTo(map);
+      const popup=`<b>${l.name}</b><div class="popup-note">${l.note||''}</div>${l.url?`<br><a href="${l.url}" target="_blank">📕 小红书笔记→</a>`:''}`;
+      m.bindPopup(popup);markers.push(m);prevPt=[l.lat,l.lng];
+    } else if(s.type==='transport'&&s.path&&s.path.length>1){
+      const pts=s.path.map(p=>[p[0],p[1]]);const c=M[s.mode]||'#666';
+      const ln=L.polyline(pts,{color:c,weight:3,opacity:.8}).addTo(map);lines.push(ln);
       const mid=Math.floor(pts.length/2);
-      const icon=L.divIcon({
-        html:`<div style="font-size:16px;background:rgba(18,18,28,.85);border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border:2px solid ${color}">${MI[s.mode]||'🚆'}</div>`,
-        iconSize:[30,30],iconAnchor:[15,15],className:''
-      });
-      const mm=L.marker(pts[mid],{icon,interactive:false}).addTo(map);
-      markers.push(mm);
-      prevPt=pts[pts.length-1];
-    } else if(s.type==='wait'){
-      // Small marker for wait points
-      if(s.icon && prevPt){
-        const icon=L.divIcon({
-          html:`<div style="font-size:12px">${s.icon||'📍'}</div>`,
-          iconSize:[20,20],iconAnchor:[10,10],className:''
-        });
-        const mm=L.marker(prevPt,{icon,interactive:false}).addTo(map);
-        markers.push(mm);
-      }
-    } else if(typeof sid==='object'){
-      // Inline transport
-      if(s.path){
-        const pts=pathToLatLng(s.path);
-        const color=M[s.mode]||'#666';
-        const line=L.polyline(pts,{color,weight:3,opacity:.8,dashArray:'6,4'}).addTo(map);
-        lines.push(line);
-        const mid=Math.floor(pts.length/2);
-        const icon=L.divIcon({
-          html:`<div style="font-size:16px;background:rgba(18,18,28,.85);border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border:2px solid ${color}">${MI[s.mode]||'🚆'}</div>`,
-          iconSize:[30,30],iconAnchor:[15,15],className:''
-        });
-        const mm=L.marker(pts[mid],{icon,interactive:false}).addTo(map);
-        markers.push(mm);
-      }
+      const mk=L.marker(pts[mid],{icon:L.divIcon({html:`<div style="font-size:16px;background:rgba(18,18,28,.85);border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border:2px solid ${c}">${MI[s.mode]||'🚆'}</div>`,iconSize:[30,30],iconAnchor:[15,15],className:''}),interactive:false}).addTo(map);
+      markers.push(mk);prevPt=pts[pts.length-1];
     }
   });
-  
-  // Fit bounds
-  const allPts=[];
-  markers.forEach(m=>{
-    const ll=m.getLatLng();
-    if(ll) allPts.push(ll);
-  });
-  if(allPts.length>0){
-    map.fitBounds(L.latLngBounds(allPts).pad(0.08));
-  }
-  
+  const allPts=[];markers.forEach(m=>{const ll=m.getLatLng();if(ll)allPts.push(ll);});
+  if(allPts.length>0)map.fitBounds(L.latLngBounds(allPts).pad(0.08));
   updateTime('点击播放查看动态行程');
 }
 
-// ====== ANIMATION ======
-function animRoute(routeIdx){
-  if(playing){stopAnim();return;}
-  
-  const R=ROUTES[routeIdx];
-  if(!R)return;
-  
+function animRoute(rIdx){
+  if(playing){playing=false;document.getElementById('playBtn').textContent='▶ 播放行程';document.getElementById('playBtn').classList.remove('running');document.getElementById('loading').style.display='none';return;}
+  const R=ROUTES[rIdx];if(!R)return;
   playing=true;stepIdx=0;
-  document.getElementById('playBtn').textContent='⏸ 暂停';
-  document.getElementById('playBtn').classList.add('running');
+  document.getElementById('playBtn').textContent='⏸ 暂停';document.getElementById('playBtn').classList.add('running');
   document.getElementById('loading').style.display='block';
-  
-  // Create moving dot
-  if(!dot){
-    dot=L.circleMarker([0,0],{
-      radius:7,color:'#fff',weight:3,fillColor:'#4ECDC4',fillOpacity:1,
-      className:'anim-dot',zIndexOffset:10000
-    }).addTo(map);
-  }
-  
-  // Current location label
-  if(!curLocEl){
-    curLocEl=document.getElementById('curLoc');
-    curLocEl.style.display='block';
-  }
-  
+  if(!dot)dot=L.circleMarker([0,0],{radius:7,color:'#fff',weight:3,fillColor:'#4ECDC4',fillOpacity:1,className:'anim-dot',zIndexOffset:10000}).addTo(map);
+  if(!curLocEl)curLocEl=document.getElementById('curLoc');
+  curLocEl.style.display='block';
   playSeg(0);
 }
-
 function playSeg(idx){
-  if(!playing||idx>=curSegs().length){stopAnim();return;}
-  
-  const R=ROUTES[curRoute];
-  const sid=R.segs[idx];
-  const s=getSeg(sid);
-  if(!s){stepIdx=idx+1;setTimeout(()=>playSeg(idx+1),100);return;}
-  
-  // Scroll timeline
+  if(!playing)return;
+  const R=ROUTES[curRoute];const sid=R.segs[idx];const s=getSeg(sid);
+  if(!s){setTimeout(()=>playSeg(idx+1),100);return;}
   scrollTo(idx);
-  
   if(s.type==='stop'){
-    const l=loc(s.id); if(!l){nextSeg(idx);return;}
-    // Fly to location
-    map.flyTo([l.lat,l.lng],15,{duration:1});
-    dot.setLatLng([l.lat,l.lng]);
-    curLocEl.querySelector('.name').textContent=l.name;
-    updateTime(s.time||'抵达');
-    // Pause a moment
-    setTimeout(()=>{if(playing)nextSeg(idx);},1200);
+    const l=loc(s.id);if(!l){setTimeout(()=>playSeg(idx+1),100);return;}
+    map.flyTo([l.lat,l.lng],14,{duration:1});dot.setLatLng([l.lat,l.lng]);
+    curLocEl.querySelector('.name').textContent=l.name;updateTime(s.time||'抵达');
+    setTimeout(()=>{if(playing)playSeg(idx+1);},1500);
   } else if(s.type==='wait'){
-    curLocEl.querySelector('.name').textContent=s.icon+' '+s.label;
-    updateTime(s.time||'');
-    // Move dot slightly
-    setTimeout(()=>{if(playing)nextSeg(idx);},1000);
-  } else if(s.type==='transport' && s.path && s.path.length>1){
-    const pts=s.path;
-    const color=M[s.mode]||'#666';
-    const dur=s.mode==='walk'?1200:s.mode==='ferry'?2000:s.mode==='train'?2500:2200;
-    const steps=40;
-    let frame=0;
-    
-    curLocEl.querySelector('.name').textContent=MI[s.mode]+' '+s.label;
-    updateTime(s.time||'');
-    
-    // Draw animated line
-    const animLine=L.polyline([pts[0]],{color,weight:4,opacity:.9}).addTo(map);
-    lines.push(animLine);
-    
-    function move(){
-      if(!playing){return;}
-      const t=frame/steps;
-      const total=pts.length-1;
-      const idx2=Math.min(Math.floor(t*total),total-1);
-      const frac=(t*total)-idx2;
-      const p=lerpP(pts[idx2],pts[Math.min(idx2+1,total)],frac);
-      
-      dot.setLatLng(p);
-      
-      // Update line
-      const drawn=pts.slice(0,idx2+1);
-      drawn.push(p);
-      animLine.setLatLngs(drawn);
-      
-      // Update camera
-      if(frame%3===0)map.panTo(p,{animate:true,duration:.4});
-      
-      frame++;
-      if(frame<=steps){
-        requestAnimationFrame(move);
-      } else {
-        // Final position
-        dot.setLatLng(pts[pts.length-1]);
-        animLine.setLatLngs(pts);
-        // Fill the progress bar
-        const trows=document.querySelectorAll('.transport-row');
-        trows.forEach(tr=>{if(parseInt(tr.dataset.idx)===idx){const f=tr.querySelector('.fill');if(f)f.style.width='100%';}});
-        setTimeout(()=>{if(playing)nextSeg(idx);},400);
+    curLocEl.querySelector('.name').textContent=(s.icon||'')+' '+s.label;updateTime(s.time||'');
+    setTimeout(()=>{if(playing)playSeg(idx+1);},1200);
+  } else if(s.type==='transport'&&s.path&&s.path.length>1){
+    const pts=s.path;const c=M[s.mode]||'#666';
+    const dur=s.mode==='walk'?1200:s.mode==='ferry'?2000:2500;const steps=30;let frame=0;
+    curLocEl.querySelector('.name').textContent=MI[s.mode]+' '+s.label;updateTime(s.time||'');
+    const al=L.polyline([pts[0]],{color:c,weight:4,opacity:.9}).addTo(map);lines.push(al);
+    function mv(){
+      if(!playing)return;
+      const t=frame/steps;const total=pts.length-1;
+      const i2=Math.min(Math.floor(t*total),total-1);
+      const f=(t*total)-i2;const p=lerpP(pts[i2],pts[Math.min(i2+1,total)],f);
+      dot.setLatLng(p);const drawn=pts.slice(0,i2+1);drawn.push(p);al.setLatLngs(drawn);
+      if(frame%4===0)map.panTo(p,{animate:true,duration:.3});frame++;
+      if(frame<=steps)requestAnimationFrame(mv);
+      else{
+        dot.setLatLng(pts[pts.length-1]);al.setLatLngs(pts);
+        document.querySelectorAll('.transport-row').forEach(tr=>{if(parseInt(tr.dataset.idx)===idx){const fl=tr.querySelector('.fill');if(fl)fl.style.width='100%';}});
+        setTimeout(()=>{if(playing)playSeg(idx+1);},400);
       }
     }
-    move();
-  } else {
-    nextSeg(idx);
-  }
+    mv();
+  } else setTimeout(()=>playSeg(idx+1),100);
 }
-
-function nextSeg(idx){
-  stepIdx=idx+1;
-  playSeg(stepIdx);
-}
-
-function curSegs(){return ROUTES[curRoute]?.segs||[];}
-
-function stopAnim(){
-  playing=false;
-  if(animTimer){clearTimeout(animTimer);animTimer=null;}
-  document.getElementById('playBtn').textContent='▶ 播放行程';
-  document.getElementById('playBtn').classList.remove('running');
-  document.getElementById('loading').style.display='none';
-  if(curLocEl)curLocEl.style.display='none';
-}
-
-function scrollTo(idx){
-  const el=document.querySelector(`[data-idx="${idx}"]`);
-  if(el){
-    document.querySelectorAll('.step,.transport-row').forEach(e=>e.classList.remove('active'));
-    el.classList.add('active');
-    el.scrollIntoView({block:'nearest',behavior:'smooth'});
-  }
-}
-
+function scrollTo(idx){const el=document.querySelector(`[data-idx="${idx}"]`);if(el){document.querySelectorAll('.step,.transport-row').forEach(e=>e.classList.remove('active'));el.classList.add('active');el.scrollIntoView({block:'nearest',behavior:'smooth'});}}
 function updateTime(t){document.getElementById('sideTime').textContent=t||'';}
-
-function focusLoc(id){
-  const l=loc(id); if(!l)return;
-  map.flyTo([l.lat,l.lng],15,{duration:.8});
-}
-
-function clearMap(){
-  markers.forEach(m=>map.removeLayer(m));markers=[];
-  lines.forEach(l=>map.removeLayer(l));lines=[];
-  if(dot){map.removeLayer(dot);dot=null;}
-  if(curLocEl)curLocEl.style.display='none';
-  document.getElementById('timeline').innerHTML='';
-}
-
-function clearAnim(){
-  if(playing)stopAnim();
-  document.querySelectorAll('.fill').forEach(f=>f.style.width='0%');
-}
-
-// ====== INIT ======
+function focusLoc(id){const l=loc(id);if(!l)return;map.flyTo([l.lat,l.lng],15,{duration:.8});}
+function clearMap(){markers.forEach(m=>map.removeLayer(m));markers=[];lines.forEach(l=>map.removeLayer(l));lines=[];if(dot){map.removeLayer(dot);dot=null;}if(curLocEl)curLocEl.style.display='none';document.getElementById('timeline').innerHTML='';}
+function clearAnim(){if(playing){playing=false;document.getElementById('playBtn').textContent='▶ 播放行程';document.getElementById('playBtn').classList.remove('active');document.getElementById('loading').style.display='none';}document.querySelectorAll('.fill').forEach(f=>f.style.width='0%');}
 function init(){
   map=L.map('map',{center:[22.31,114.175],zoom:12,zoomControl:true,attributionControl:false});
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19}).addTo(map);
-  
-  // Tabs
   const tabs=document.getElementById('tabs');
-  ROUTES.forEach((r,i)=>{
-    const tb=document.createElement('button');
-    tb.className='tab';tb.textContent=r.name;
-    tb.onclick=()=>{clearAnim();draw(i);};
-    tabs.appendChild(tb);
-  });
-  
-  // Play button
+  ROUTES.forEach((r,i)=>{const tb=document.createElement('button');tb.className='tab';tb.textContent=r.name;tb.onclick=()=>{clearAnim();draw(i);};tabs.appendChild(tb);});
   document.getElementById('playBtn').onclick=()=>animRoute(curRoute??0);
-  
-  // Draw first route
   draw(0);
 }
-
 init();
 </script>
 </body>
