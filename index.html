@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <title>🇭🇰 香港小众玩法 · 动态旅行轨迹</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#0f0f0f;color:#fff;height:100vh;display:flex;flex-direction:column;overflow:hidden;user-select:none}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#0f0f0f;color:#fff;height:100vh;display:flex;flex-direction:column;overflow:hidden}
 #hd{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);padding:12px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
 #hd h1{font-size:16px;font-weight:700;flex:1}#hd h1 small{font-size:10px;color:#888;font-weight:400;margin-left:6px}
-#playBtn{padding:7px 16px;border-radius:20px;border:1px solid #4ECDC4;background:rgba(78,205,196,.12);color:#4ECDC4;font-size:12px;cursor:pointer;font-weight:600;transition:all .3s;white-space:nowrap}
+#playBtn{padding:7px 16px;border-radius:20px;border:1px solid #4ECDC4;background:rgba(78,205,196,.12);color:#4ECDC4;font-size:12px;cursor:pointer;font-weight:600;transition:all .3s}
 #playBtn:hover{background:#4ECDC4;color:#000}
 #playBtn.running{background:#FF6B6B;border-color:#FF6B6B;color:#fff;animation:pulse 1s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 #tabs{display:flex;gap:5px;padding:8px 12px;background:#141420;overflow-x:auto;flex-shrink:0;border-bottom:1px solid #222;scrollbar-width:none}
 #tabs::-webkit-scrollbar{display:none}
-.tab{padding:5px 14px;border-radius:16px;font-size:11px;border:1px solid #333;cursor:pointer;background:transparent;color:#888;transition:all .2s;white-space:nowrap;flex-shrink:0}
+.tab{padding:5px 14px;border-radius:16px;font-size:11px;border:1px solid #333;cursor:pointer;background:transparent;color:#888;transition:all .2s;white-space:nowrap}
 .tab:hover{border-color:#4ECDC4;color:#4ECDC4}
 .tab.active{background:#4ECDC4;color:#000;border-color:#4ECDC4;font-weight:600}
 #main{display:flex;flex:1;overflow:hidden}
@@ -37,43 +37,34 @@ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;backgr
 .step .info .nm{font-size:13px;font-weight:600;display:block}
 .step .info .tm{font-size:10px;color:#666}
 .step .info .desc{font-size:11px;color:#777;margin-top:2px;line-height:1.3}
-.transport-row{display:flex;align-items:center;gap:8px;padding:5px 14px 5px 50px;font-size:11px;opacity:.45;border-left:3px solid transparent}
+.step .info .lnk{font-size:10px;color:#4ECDC4;margin-top:2px;display:block;text-decoration:none}
+.transport-row{display:flex;align-items:center;gap:8px;padding:5px 14px 5px 50px;font-size:11px;opacity:.45}
 .transport-row .track{flex:1;height:3px;border-radius:2px;position:relative;overflow:hidden}
 .transport-row .track .fill{height:100%;border-radius:2px;width:0%;transition:width .5s}
 .transport-row .track .fill.active{width:100%}
 .transport-row .lbl{color:#888;white-space:nowrap}
 .transport-row .tm{color:#555;font-size:10px;white-space:nowrap}
 #mapWrap{flex:1;position:relative}#map{height:100%;width:100%}
-#loading{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.7);padding:6px 14px;border-radius:16px;font-size:11px;color:#888;z-index:10000;pointer-events:none;display:none}
+#loading{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.7);padding:6px 14px;border-radius:16px;font-size:11px;color:#888;z-index:10000;display:none}
 #curLoc{position:absolute;top:10px;right:10px;z-index:1000;background:rgba(15,15,15,.9);padding:5px 10px;border-radius:8px;font-size:10px;color:#888;border:1px solid #222;max-width:180px;display:none;line-height:1.4}
 #curLoc .name{color:#fff;font-weight:600}
 #legend{position:absolute;bottom:10px;right:10px;z-index:1000;background:rgba(15,15,15,.85);padding:6px 10px;border-radius:6px;font-size:10px;border:1px solid #222}
 #legend div{display:flex;align-items:center;gap:5px;margin:2px 0;color:#888}
-.lg{width:16px;height:3px;border-radius:2px;flex-shrink:0}
-.anim-dot{width:14px;height:14px;background:#4ECDC4;border-radius:50%;border:3px solid #fff;box-shadow:0 0 16px rgba(78,205,196,.8);z-index:10000!important;pointer-events:none;transition:none}
-.leaflet-popup-content-wrapper{background:#1a1a2e;color:#fff;border-radius:10px;border:1px solid #333;box-shadow:0 4px 20px rgba(0,0,0,.5)}
+.lg{width:16px;height:3px;border-radius:2px}
+.anim-dot{width:14px;height:14px;background:#4ECDC4;border-radius:50%;border:3px solid #fff;box-shadow:0 0 16px rgba(78,205,196,.8);z-index:10000!important;pointer-events:none}
+.leaflet-popup-content-wrapper{background:#1a1a2e;color:#fff;border-radius:10px;border:1px solid #333}
 .leaflet-popup-tip{background:#1a1a2e}
 .leaflet-popup-content{margin:10px 12px;font-size:12px;line-height:1.5}
 .leaflet-popup-content a{color:#4ECDC4;text-decoration:none}
 .popup-note{color:#aaa;font-size:11px;margin:4px 0}
-@media(max-width:768px){
-  #main{flex-direction:column-reverse}
-  #sidebar{width:100%;max-height:35vh;border-right:none;border-top:1px solid #222}
-  #hd h1{font-size:14px}
-}
+@media(max-width:768px){#main{flex-direction:column-reverse}#sidebar{width:100%;max-height:35vh;border-right:none;border-top:1px solid #222}#hd h1{font-size:14px}}
 </style>
 </head>
 <body>
-<div id="hd">
-  <h1>🇭🇰 香港小众轨迹 <small>7/31–8/1 曼城之旅</small></h1>
-  <button id="playBtn">▶ 播放行程</button>
-</div>
+<div id="hd"><h1>🇭🇰 香港小众轨迹 <small>7/31–8/1 三人曼城之旅</small></h1><button id="playBtn">▶ 播放行程</button></div>
 <div id="tabs"></div>
 <div id="main">
-  <div id="sidebar">
-    <div id="sidebarHdr"><span>📋 <strong>行程时间线</strong></span><span id="sideTime">点击播放</span></div>
-    <div id="timeline"></div>
-  </div>
+  <div id="sidebar"><div id="sidebarHdr"><span>📋 <strong>行程时间线</strong></span><span id="sideTime">点击播放</span></div><div id="timeline"></div></div>
   <div id="mapWrap">
     <div id="map"></div>
     <div id="curLoc">📍 <span class="name"></span></div>
@@ -83,100 +74,90 @@ body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;backgr
       <div><span class="lg" style="background:#FF9800"></span>🚶 步行</div>
       <div><span class="lg" style="background:#00BCD4"></span>⛴️ 天星小轮</div>
       <div><span class="lg" style="background:#E91E63"></span>🚄 高铁</div>
+      <div><span class="lg" style="background:#9C27B0"></span>🧀 美食</div>
     </div>
   </div>
 </div>
 <script>
-const M={mtr:'#4ECDC4',walk:'#FF9800',ferry:'#00BCD4',train:'#E91E63',wait:'#888'};
-const MI={mtr:'🚇',walk:'🚶',ferry:'⛴️',train:'🚄',wait:'⏳'};
+const M={mtr:'#4ECDC4',walk:'#FF9800',ferry:'#00BCD4',train:'#E91E63',food:'#9C27B0'};
+const MI={mtr:'🚇',walk:'🚶',ferry:'⛴️',train:'🚄',food:'🧀'};
 const LOCS={
-  sz_east:{name:'深圳东站（布吉）',lat:22.6055,lng:114.1225,note:'抵达深圳东站'},
+  sz_east:{name:'深圳东站（布吉）',lat:22.6055,lng:114.1225,note:'你+朋友A到深圳'},
   futian:{name:'福田站（高铁）',lat:22.522,lng:114.058,note:'换乘高铁去香港西九龙'},
-  hk_west:{name:'香港西九龙站',lat:22.304,lng:114.162,note:'高铁抵达'},
-  tst_ferry:{name:'尖沙咀天星码头',lat:22.2911,lng:114.1695,note:'住尖沙咀'},
-  central_ferry:{name:'中环天星码头',lat:22.287,lng:114.1585,note:'抵达中环'},
-  ifc:{name:'金管局55楼观景台',lat:22.2845,lng:114.1585,note:'免费270°俯瞰维港',cat:'viewpoint',url:'https://www.xiaohongshu.com/discovery/item/66ba2a2e000000001e01aeb2?xsec_token=ABxNQUisQNYDUEpnSyXio1KE6om3DqsdiEvuj62a9rkjU=&xsec_source=pc_share'},
-  central_mkt:{name:'中环街市',lat:22.2835,lng:114.1568,note:'电影《无名》同款楼梯怀旧市集',cat:'attraction'},
-  fringe:{name:'艺穗会',lat:22.2805,lng:114.1543,note:'红砖白条纹建筑打卡',cat:'attraction'},
-  tai_kwun:{name:'大馆',lat:22.2812,lng:114.1525,note:'前监狱改造艺术区免费参观',cat:'attraction'},
-  hollywood:{name:'荷李活道壁画',lat:22.281,lng:114.1535,note:'九龙城寨壁画经典港风',cat:'attraction'},
-  whitenoise:{name:'White Noise Records',lat:22.3295,lng:114.1622,note:'黑胶唱片+文创',cat:'shop'},
+  hk_west:{name:'香港西九龙站',lat:22.304,lng:114.162,note:'高铁抵达，过关出站'},
+  hotel:{name:'尖沙咀酒店',lat:22.296,lng:114.17,note:'放行李+入住'},
+  whitenoise:{name:'White Noise Records',lat:22.3295,lng:114.1622,note:'黑胶唱片+文创',cat:'shop',url:'https://www.xiaohongshu.com/discovery/item/6575b7fa000000001e00f602?xsec_token=ABoJdR_kYw_kJrnvV9oJ7cnhxLjE_F6ZJVhm_5Sjh6k5Y=&xsec_source=pc_share'},
   ho_records:{name:'HO唱片行',lat:22.3292,lng:114.1629,note:'二手碟天堂',cat:'shop'},
   yasu:{name:'雅俗共想（中古玩具）',lat:22.3298,lng:114.1628,note:'怀旧中古玩具',cat:'shop'},
   wanxing:{name:'万兴制衣（手作牛仔）',lat:22.3302,lng:114.162,note:'手作牛仔体验',cat:'shop'},
   fineprint:{name:'FINEPRINT',lat:22.3285,lng:114.163,note:'深水埗精品咖啡',cat:'cafe'},
+  kwai_chung:{name:'葵涌广场·拉丝芝士薯片',lat:22.358,lng:114.131,note:'抖音爆款！三人一起去🧀',cat:'food',url:'https://v.douyin.com/vUTL9640HZA/'},
+  braemar:{name:'宝马山日落',lat:22.2905,lng:114.2005,note:'俯瞰维港全景，看日落🌅',cat:'viewpoint'},
+  ifc:{name:'金管局55楼观景台',lat:22.2845,lng:114.1585,note:'免费270°俯瞰维港',cat:'viewpoint',url:'https://www.xiaohongshu.com/discovery/item/66ba2a2e000000001e01aeb2?xsec_token=ABxNQUisQNYDUEpnSyXio1KE6om3DqsdiEvuj62a9rkjU=&xsec_source=pc_share'},
+  central_mkt:{name:'中环街市',lat:22.2835,lng:114.1568,note:'电影《无名》同款楼梯',cat:'attraction',url:'https://www.xiaohongshu.com/discovery/item/6828cd910000000003038f61?xsec_token=AB29e94TjthZQUP8bo_08hWPqVefWCtFgSCg3awndcwTY=&xsec_source=pc_share'},
+  fringe:{name:'艺穗会',lat:22.2805,lng:114.1543,note:'红砖白条纹建筑打卡',cat:'attraction'},
+  tai_kwun:{name:'大馆',lat:22.2812,lng:114.1525,note:'前监狱改造艺术区免费',cat:'attraction'},
   ooo:{name:'ooo.coffee（土瓜湾）',lat:22.318,lng:114.188,note:'社区咖啡店',cat:'cafe',url:'https://www.xiaohongshu.com/discovery/item/66d6e6fe000000001900d9d0?xsec_token=ABJ5rS3tCfF_RcIRMq7DJvfCQAVh1Xm64O5X11r26htLY=&xsec_source=pc_share'},
-  kai_tak:{name:'启德体育场·曼城比赛',lat:22.3304,lng:114.1952,note:'⚽ 曼城香港行 17:00开赛',cat:'stadium'},
+  kai_tak:{name:'启德体育场·曼城比赛',lat:22.3304,lng:114.1952,note:'⚽ 19:30开赛！',cat:'stadium'},
 };
 const MTR={
   central:[22.2815,114.1585],admiralty:[22.279,114.164],
   tst_mtr:[22.297,114.171],jordan:[22.305,114.171],
   yau_ma_tei:[22.312,114.171],mongkok:[22.318,114.169],
   prince_edward:[22.324,114.167],sham_shui_po:[22.331,114.162],
+  lai_chi_kok:[22.337,114.149],mei_foo:[22.337,114.139],
+  kwai_fong:[22.358,114.131],tai_wo_hau:[22.371,114.126],
   to_kwa_wan:[22.316,114.189],kai_tak_mtr:[22.328,114.195],
-  hung_hom:[22.303,114.187]
+  hung_hom:[22.303,114.187],fortress_hill:[22.289,114.194]
 };
-// ====== ROUTE SEGMENTS ======
 const SEG={
-  // === PRE-TRIP ===
-  sz_arr:{type:'wait',label:'抵达深圳东站',time:'09:08',icon:'🚉'},
-  sz_mtr:{type:'transport',mode:'mtr',label:'地铁3号线 布吉→福田',time:'20min',
-    path:[[22.604,114.118],[22.586,114.118],[22.578,114.123],[22.573,114.128],[22.565,114.127],[22.554,114.127],[22.546,114.118],[22.544,114.108],[22.522,114.058]]},
+  sz_arr:{type:'wait',label:'你+朋友A到深圳东站',time:'09:08',icon:'🚉'},
+  sz_mtr:{type:'transport',mode:'mtr',label:'地铁3号线 布吉→福田',time:'20min',path:[[22.604,114.118],[22.586,114.118],[22.578,114.123],[22.573,114.128],[22.565,114.127],[22.554,114.127],[22.546,114.118],[22.544,114.108],[22.522,114.058]]},
   sz_wait:{type:'wait',label:'福田站安检过关',time:'15min',icon:'⏳'},
-  sz_train:{type:'transport',mode:'train',label:'高铁 福田→香港西九龙',time:'14min',
-    path:[[22.522,114.058],[22.47,114.09],[22.40,114.115],[22.35,114.14],[22.304,114.162]]},
-  customs:{type:'wait',label:'西九龙过关出站',time:'25min',icon:'🛂'},
-  // === DAY 1 — 九龙 ===
-  d1_drop:{type:'wait',label:'尖沙咀放行李',time:'10:40-11:00',icon:'🏨'},
-  d1_tst_ssp:{type:'transport',mode:'mtr',label:'尖沙咀→深水埗（荃湾线）',time:'10min',
-    path:[MTR.tst_mtr,MTR.jordan,MTR.yau_ma_tei,MTR.mongkok,MTR.prince_edward,MTR.sham_shui_po]},
+  sz_train:{type:'transport',mode:'train',label:'高铁 福田→香港西九龙',time:'14min',note:'G系列高铁',path:[[22.522,114.058],[22.47,114.09],[22.40,114.115],[22.35,114.14],[22.304,114.162]]},
+  customs:{type:'wait',label:'西九龙过关出站',time:'20min',icon:'🛂'},
+  d1_hotel_drop:{type:'wait',label:'尖沙咀酒店放行李',time:'10:45-11:00',icon:'🏨'},
+  d1_ssp:{type:'transport',mode:'mtr',label:'尖沙咀→深水埗（荃湾线）',time:'10min',path:[MTR.tst_mtr,MTR.jordan,MTR.yau_ma_tei,MTR.mongkok,MTR.prince_edward,MTR.sham_shui_po]},
   d1_coffee:{type:'stop',id:'fineprint',time:'11:15-11:45'},
-  d1_ssp:{type:'stop',id:'whitenoise',time:'11:45-13:00',note:'唱片店→中古玩具一条街串游'},
+  d1_records:{type:'stop',id:'whitenoise',time:'11:45-13:00',note:'唱片店+中古店一条街串游'},
   d1_lunch:{type:'wait',label:'深水埗午餐',time:'13:00-14:00',icon:'🍜'},
-  d1_ssp_more:{type:'stop',id:'yasu',time:'14:00-15:00',note:'继续逛+咖啡'},
-  d1_ssp_tst:{type:'transport',mode:'mtr',label:'深水埗→尖沙咀（荃湾线）',time:'10min',
-    path:[MTR.sham_shui_po,MTR.prince_edward,MTR.mongkok,MTR.yau_ma_tei,MTR.jordan,MTR.tst_mtr]},
-  d1_rest:{type:'wait',label:'回住处休息',time:'15:15-16:30',icon:'🏨'},
-  d1_harbour:{type:'wait',label:'尖沙咀海滨长廊·星光大道',time:'16:30-17:30',icon:'🌇'},
-  d1_dinner:{type:'wait',label:'尖沙咀晚餐',time:'17:30-18:30',icon:'🍜'},
-  d1_night:{type:'wait',label:'维港夜景·天星小轮夜游',time:'18:30-20:00',icon:'🌃'},
-  // === DAY 2 — 港岛 + 启德 ===
-  d2_ferry:{type:'transport',mode:'ferry',label:'天星小轮 尖沙咀→中环',time:'10min',
-    path:[[22.2911,114.1695],[22.288,114.164],[22.287,114.1585]]},
-  d2_bfast:{type:'wait',label:'中环早餐（兰芳园/茶餐厅）',time:'08:15-08:45',icon:'☕'},
-  d2_ifc:{type:'stop',id:'ifc',time:'08:45-09:30'},
-  d2_central:{type:'stop',id:'central_mkt',time:'09:30-11:30',note:'街市→艺穗会→大馆→壁画（步行串游）'},
-  d2_lunch:{type:'wait',label:'中环午餐',time:'11:30-12:30',icon:'🍜'},
-  d2_to_tkw:{type:'transport',mode:'mtr',label:'中环→土瓜湾（荃湾线+屯马线）',time:'25min',
-    path:[MTR.central,MTR.admiralty,MTR.tst_mtr,MTR.hung_hom,MTR.to_kwa_wan]},
-  d2_ooo:{type:'stop',id:'ooo',time:'12:45-13:45'},
-  d2_to_kt:{type:'transport',mode:'walk',label:'土瓜湾→启德（海滨步行）',time:'15min',
-    path:[[22.318,114.188],[22.322,114.19],[22.325,114.192],[22.3304,114.1952]]},
-  d2_prematch:{type:'wait',label:'启德体育场周边逛逛+入场',time:'14:00-16:45',icon:'⚽'},
-  d2_match:{type:'stop',id:'kai_tak',time:'17:00-21:30'},
-  d2_back:{type:'transport',mode:'mtr',label:'启德→尖沙咀（屯马线+荃湾线）',time:'20min',
-    path:[MTR.kai_tak_mtr,MTR.hung_hom,MTR.tst_mtr]},
+  d1_back:{type:'transport',mode:'mtr',label:'深水埗→尖沙咀（荃湾线）',time:'10min',path:[MTR.sham_shui_po,MTR.prince_edward,MTR.mongkok,MTR.yau_ma_tei,MTR.jordan,MTR.tst_mtr]},
+  d1_rest:{type:'wait',label:'尖沙咀休息/海滨逛逛',time:'14:15-16:30',icon:'😌'},
+  d1_to_braemar:{type:'transport',mode:'mtr',label:'尖沙咀→炮台山（荃湾线+港岛线）',time:'20min',path:[MTR.tst_mtr,MTR.admiralty,MTR.fortress_hill]},
+  d1_braemar:{type:'stop',id:'braemar',time:'17:00-18:30'},
+  d1_braemar_down:{type:'wait',label:'下山返回',time:'18:30-19:00',icon:'🚶'},
+  d1_to_kwai:{type:'transport',mode:'mtr',label:'炮台山→葵芳（港岛线+荃湾线）',time:'30min',path:[MTR.fortress_hill,MTR.admiralty,MTR.central,MTR.tst_mtr,MTR.jordan,MTR.yau_ma_tei,MTR.mongkok,MTR.prince_edward,MTR.sham_shui_po,MTR.lai_chi_kok,MTR.mei_foo,MTR.kwai_fong]},
+  d1_friendb_arr:{type:'wait',label:'✈️朋友B到机场→机铁→酒店放行李',time:'17:55-19:10',icon:'🛄'},
+  d1_friendb_kwai:{type:'transport',mode:'mtr',label:'朋友B 尖沙咀→葵芳（荃湾线）',time:'15min',path:[MTR.tst_mtr,MTR.jordan,MTR.yau_ma_tei,MTR.mongkok,MTR.prince_edward,MTR.sham_shui_po,MTR.lai_chi_kok,MTR.mei_foo,MTR.kwai_fong]},
+  d1_cheese:{type:'stop',id:'kwai_chung',time:'19:30-20:30',note:'三人葵涌广场会合🧀拉丝芝士薯片'},
+  d1_kwai_back:{type:'transport',mode:'mtr',label:'葵芳→尖沙咀（荃湾线）',time:'15min',path:[MTR.kwai_fong,MTR.mei_foo,MTR.lai_chi_kok,MTR.sham_shui_po,MTR.prince_edward,MTR.mongkok,MTR.yau_ma_tei,MTR.jordan,MTR.tst_mtr]},
+  d1_dinner:{type:'wait',label:'三人尖沙咀晚餐',time:'21:00-22:00',icon:'🍽️'},
+  d1_checkin:{type:'wait',label:'🏨酒店入住',time:'22:00',icon:'🛌'},
+  d2_breakfast:{type:'wait',label:'尖沙咀早茶',time:'09:30-10:30',icon:'🍳'},
+  d2_ferry:{type:'transport',mode:'ferry',label:'天星小轮 尖沙咀→中环',time:'10min',path:[[22.2911,114.1695],[22.288,114.164],[22.287,114.1585]]},
+  d2_ifc:{type:'stop',id:'ifc',time:'10:45-11:30'},
+  d2_central:{type:'stop',id:'central_mkt',time:'11:30-13:00',note:'街市→艺穗会→大馆步行串游'},
+  d2_lunch:{type:'wait',label:'中环午餐',time:'13:00-14:00',icon:'🍜'},
+  d2_tkw:{type:'transport',mode:'mtr',label:'中环→土瓜湾（荃湾线+屯马线）',time:'25min',path:[MTR.central,MTR.admiralty,MTR.tst_mtr,MTR.hung_hom,MTR.to_kwa_wan]},
+  d2_ooo:{type:'stop',id:'ooo',time:'14:30-15:30'},
+  d2_kt:{type:'transport',mode:'walk',label:'土瓜湾→启德（海滨步道）',time:'15min',path:[[22.318,114.188],[22.322,114.19],[22.325,114.192],[22.3304,114.1952]]},
+  d2_pre:{type:'wait',label:'启德体育场周边+入场',time:'16:00-19:30',icon:'⚽'},
+  d2_match:{type:'stop',id:'kai_tak',time:'19:30-22:00'},
+  d2_back:{type:'transport',mode:'mtr',label:'启德→尖沙咀（屯马线）',time:'15min',path:[MTR.kai_tak_mtr,[22.324,114.185],MTR.hung_hom,MTR.tst_mtr]},
 };
-
-// ====== ROUTES ======
 const ROUTES=[
-  {
-    key:'day1',name:'Day 1 九龙懒人游',color:'#4ECDC4',
-    segs:['sz_arr','sz_mtr','sz_wait','sz_train','customs','d1_drop','d1_tst_ssp','d1_coffee','d1_ssp','d1_lunch','d1_ssp_more','d1_ssp_tst','d1_rest','d1_harbour','d1_dinner','d1_night']
+  {key:'day1',name:'Day 1 九龙+宝马山日落+葵涌',color:'#4ECDC4',
+    segs:['sz_arr','sz_mtr','sz_wait','sz_train','customs','d1_hotel_drop','d1_ssp','d1_coffee','d1_records','d1_lunch','d1_back','d1_rest','d1_to_braemar','d1_braemar','d1_braemar_down','d1_to_kwai','d1_friendb_arr','d1_friendb_kwai','d1_cheese','d1_kwai_back','d1_dinner','d1_checkin']
   },{
-    key:'day2',name:'Day 2 港岛+启德看球',color:'#FF6B6B',
-    segs:['d2_ferry','d2_bfast','d2_ifc','d2_central','d2_lunch','d2_to_tkw','d2_ooo','d2_to_kt','d2_prematch','d2_match','d2_back']
+    key:'day2',name:'Day 2 中环+启德看球',color:'#FF6B6B',
+    segs:['d2_breakfast','d2_ferry','d2_ifc','d2_central','d2_lunch','d2_tkw','d2_ooo','d2_kt','d2_pre','d2_match','d2_back']
   },
 ];
-
-// ====== HELPERS ======
 function loc(id){return LOCS[id];}
 function lerp(a,b,t){return a+(b-a)*t;}
 function lerpP(a,b,t){return[lerp(a[0],b[0],t),lerp(a[1],b[1],t)];}
-function totalLen(pts){let d=0;for(let i=1;i<pts.length;i++)d+=Math.sqrt((pts[i][0]-pts[i-1][0])**2+(pts[i][1]-pts[i-1][1])**2);return d;}
 function getSeg(sid){return SEG[sid]||sid;}
 let map,curRoute=null,markers=[],lines=[],playing=false,stepIdx=0,dot=null,curLocEl=null;
-
 function draw(rIdx){
   clearMap();curRoute=rIdx;
   const R=ROUTES[rIdx];
@@ -184,12 +165,12 @@ function draw(rIdx){
   const tl=document.getElementById('timeline');tl.innerHTML='';
   let num=0;
   R.segs.forEach((sid,i)=>{
-    const s=getSeg(sid);if(!s) return;
+    const s=getSeg(sid);if(!s)return;
     if(s.type==='stop'){
       const l=loc(s.id);if(!l)return;
-      const d=document.createElement('div');d.className='step';d.dataset.idx=i;d.dataset.stop=s.id;
-      d.innerHTML=`<div class="num">${++num}</div><div class="info"><span class="nm">📍 ${l.name}</span><span class="tm">${s.time||''}</span><span class="desc">${s.note||l.note||''}</span></div>`;
-      d.onclick=()=>{clearAnim();focusLoc(s.id);};tl.appendChild(d);
+      const d=document.createElement('div');d.className='step';d.dataset.idx=i;
+      d.innerHTML=`<div class="num">${++num}</div><div class="info"><span class="nm">📍 ${l.name}</span><span class="tm">${s.time||''}</span><span class="desc">${s.note||l.note||''}</span>${l.url?`<a class="lnk" href="${l.url}" target="_blank">🔗 查看详情→</a>`:''}</div>`;
+      d.onclick=()=>{clearAnim();focusLoc(l.id);};tl.appendChild(d);
     } else if(s.type==='wait'){
       const d=document.createElement('div');d.className='step';d.dataset.idx=i;
       d.innerHTML=`<div class="num">${++num}</div><div class="info"><span class="nm">${s.icon||'⏳'} ${s.label}</span><span class="tm">${s.time||''}</span></div>`;
@@ -198,18 +179,18 @@ function draw(rIdx){
       const d=document.createElement('div');d.className='transport-row';d.dataset.idx=i;
       const c=M[s.mode]||'#666';
       d.innerHTML=`<span>${MI[s.mode]||'🚆'}</span><div class="track" style="background:${c}33"><div class="fill" style="background:${c}"></div></div><span class="lbl">${s.label}</span><span class="tm">${s.time}</span>`;
+      if(s.note){d.innerHTML+=`<span style="font-size:9px;color:#555">${s.note}</span>`;}
       tl.appendChild(d);
     }
   });
-  // Draw map
   let prevPt=null;
   R.segs.forEach((sid,i)=>{
     const s=getSeg(sid);if(!s)return;
     if(s.type==='stop'){
       const l=loc(s.id);if(!l)return;
-      const cc=l.cat==='stadium'?'#ff0':l.cat==='viewpoint'?'#4ECDC4':l.cat==='cafe'?'#FF9800':l.cat==='shop'?'#C44FFF':'#888';
-      const m=L.circleMarker([l.lat,l.lng],{radius:l.id==='kai_tak'?12:8,color:'#fff',weight:2,fillColor:cc,fillOpacity:.9}).addTo(map);
-      const popup=`<b>${l.name}</b><div class="popup-note">${l.note||''}</div>${l.url?`<br><a href="${l.url}" target="_blank">📕 小红书笔记→</a>`:''}`;
+      const cc=l.cat==='stadium'?'#ff0':l.cat==='viewpoint'?'#4ECDC4':l.cat==='food'?'#9C27B0':l.cat==='cafe'?'#FF9800':l.cat==='shop'?'#C44FFF':'#888';
+      const m=L.circleMarker([l.lat,l.lng],{radius:l.id==='kai_tak'?12:l.id==='kwai_chung'?10:8,color:'#fff',weight:2,fillColor:cc,fillOpacity:.9}).addTo(map);
+      const popup=`<b>${l.name}</b>${l.cat?`<br><span style="color:#888;font-size:11px">${l.cat}</span>`:''}<div class="popup-note">${l.note||''}</div>${l.url?`<br><a href="${l.url}" target="_blank">🔗 查看详情→</a>`:''}`;
       m.bindPopup(popup);markers.push(m);prevPt=[l.lat,l.lng];
     } else if(s.type==='transport'&&s.path&&s.path.length>1){
       const pts=s.path.map(p=>[p[0],p[1]]);const c=M[s.mode]||'#666';
@@ -223,7 +204,6 @@ function draw(rIdx){
   if(allPts.length>0)map.fitBounds(L.latLngBounds(allPts).pad(0.08));
   updateTime('点击播放查看动态行程');
 }
-
 function animRoute(rIdx){
   if(playing){playing=false;document.getElementById('playBtn').textContent='▶ 播放行程';document.getElementById('playBtn').classList.remove('running');document.getElementById('loading').style.display='none';return;}
   const R=ROUTES[rIdx];if(!R)return;
@@ -232,8 +212,7 @@ function animRoute(rIdx){
   document.getElementById('loading').style.display='block';
   if(!dot)dot=L.circleMarker([0,0],{radius:7,color:'#fff',weight:3,fillColor:'#4ECDC4',fillOpacity:1,className:'anim-dot',zIndexOffset:10000}).addTo(map);
   if(!curLocEl)curLocEl=document.getElementById('curLoc');
-  curLocEl.style.display='block';
-  playSeg(0);
+  curLocEl.style.display='block';playSeg(0);
 }
 function playSeg(idx){
   if(!playing)return;
@@ -254,10 +233,8 @@ function playSeg(idx){
     curLocEl.querySelector('.name').textContent=MI[s.mode]+' '+s.label;updateTime(s.time||'');
     const al=L.polyline([pts[0]],{color:c,weight:4,opacity:.9}).addTo(map);lines.push(al);
     function mv(){
-      if(!playing)return;
-      const t=frame/steps;const total=pts.length-1;
-      const i2=Math.min(Math.floor(t*total),total-1);
-      const f=(t*total)-i2;const p=lerpP(pts[i2],pts[Math.min(i2+1,total)],f);
+      if(!playing)return;const t=frame/steps;const total=pts.length-1;
+      const i2=Math.min(Math.floor(t*total),total-1);const f=(t*total)-i2;const p=lerpP(pts[i2],pts[Math.min(i2+1,total)],f);
       dot.setLatLng(p);const drawn=pts.slice(0,i2+1);drawn.push(p);al.setLatLngs(drawn);
       if(frame%4===0)map.panTo(p,{animate:true,duration:.3});frame++;
       if(frame<=steps)requestAnimationFrame(mv);
