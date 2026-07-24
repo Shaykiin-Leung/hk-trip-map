@@ -113,8 +113,8 @@ const MI = { mtr:'🚇', walk:'🚶', ferry:'⛴️', train:'🚄', wait:'⏳' }
 // ====== LOCATIONS ======
 const LOCS = {
   // === 深圳 ===
-  sz_east: {name:'深圳东站（布吉）', lat:22.6055, lng:114.1225, note:'抵达深圳东站，转地铁去深圳北'},
-  sz_north: {name:'深圳北站', lat:22.6135, lng:114.0285, note:'换乘高铁前往香港西九龙'},
+  sz_east: {name:'深圳东站（布吉）', lat:22.6055, lng:114.1225, note:'抵达深圳东站，转地铁去福田'},
+  futian: {name:'福田站（高铁）', lat:22.522, lng:114.058, note:'换乘高铁前往香港西九龙'},
   // === 香港交通枢纽 ===
   hk_west: {name:'香港西九龙站', lat:22.304, lng:114.162, note:'高铁抵达，过关出站'},
   tst_ferry: {name:'尖沙咀天星码头', lat:22.2911, lng:114.1695, note:'体验百年天星小轮'},
@@ -165,9 +165,8 @@ const MTR = {
   to_kwa_wan: [22.316, 114.189],   // 土瓜湾站
   // 深圳
   shenzhen_north_mtr: [22.6135, 114.0285],
-  buji: [22.604, 114.118],         // 布吉站
-  wugang: [22.529, 114.039],       // 五和站
-  minzhi: [22.555, 114.041],       // 民治站
+  futian_mtr: [22.522, 114.058],   // 福田站（高铁+地铁）
+  buji: [22.604, 114.118],         // 布吉站（深圳东）
 };
 
 // ====== ROUTE DEFINITIONS ======
@@ -179,15 +178,15 @@ const MTR = {
 const SEGMENTS = {
   // Pre-trip: Shenzhen
   'sz_arrive': {type:'wait', label:'抵达深圳东站', time:'09:08', icon:'🚉'},
-  'sz_to_north': {type:'transport', mode:'mtr', label:'深圳地铁5号线 布吉→深圳北', time:'25min',
-    path:[[22.604,114.118],[22.554,114.076],[22.529,114.053],[22.6135,114.0285]]},
-  'sz_wait': {type:'wait', label:'深圳北站候车+安检过关', time:'30min', icon:'⏳'},
-  'sz_hk_train': {type:'transport', mode:'train', label:'高铁 深圳北→香港西九龙', time:'18min',
-    path:[[22.6135,114.0285],[22.55,114.06],[22.48,114.09],[22.4,114.11],[22.35,114.14],[22.304,114.162]],
-    note:'G系列高铁，全程约18分钟'},
+  'sz_to_futian': {type:'transport', mode:'mtr', label:'深圳地铁3号线 布吉→福田', time:'20min',
+    path:[[22.604,114.118],[22.586,114.118],[22.578,114.123],[22.573,114.128],[22.565,114.127],[22.554,114.127],[22.546,114.118],[22.544,114.108],[22.522,114.058]]},
+  'futian_wait': {type:'wait', label:'福田站安检过关', time:'15min', icon:'⏳'},
+  'sz_hk_train': {type:'transport', mode:'train', label:'高铁 福田→香港西九龙', time:'14min',
+    path:[[22.522,114.058],[22.47,114.09],[22.40,114.115],[22.35,114.14],[22.304,114.162]],
+    note:'G系列高铁，福田到西九龙仅14分钟'},
   'hk_customs': {type:'wait', label:'香港西九龙站过关出站', time:'25min', icon:'🛂'},
   // Day 1
-  'tst_arrive': {type:'stop', id:'tst_ferry', time:'10:50', note:'到达尖沙咀'},
+  'tst_arrive': {type:'stop', id:'tst_ferry', time:'10:25', note:'到达尖沙咀'},
   'tst_to_central': {type:'transport', mode:'ferry', label:'天星小轮 尖沙咀→中环', time:'10min',
     path:[[22.2911,114.1695],[22.288,114.164],[22.287,114.1585]]},
   'ifc_visit': {type:'stop', id:'ifc', time:'11:15-12:00'},
@@ -220,13 +219,13 @@ const ROUTES = [
     key:'day1',
     name:'Day 1 港岛+深水埗',
     color:'#4ECDC4',
-    segs:['sz_arrive','sz_to_north','sz_wait','sz_hk_train','hk_customs','tst_arrive','tst_to_central','ifc_visit','central_walk','central_tour','lunch','central_to_ssp','ssp_shop','ssp_to_tst','rest','tst_to_northpt','braemar_view']
+    segs:['sz_arrive','sz_to_futian','futian_wait','sz_hk_train','hk_customs','tst_arrive','tst_to_central','ifc_visit','central_walk','central_tour','lunch','central_to_ssp','ssp_shop','ssp_to_tst','rest','tst_to_northpt','braemar_view']
   },
   {
     key:'day1alt',
     name:'Day 1 替代·天台酒吧',
     color:'#FFD93D',
-    segs:['sz_arrive','sz_to_north','sz_wait','sz_hk_train','hk_customs','tst_arrive','tst_to_central','ifc_visit','central_walk','central_tour','lunch','central_to_ssp','ssp_shop','ssp_to_tst','rest',
+    segs:['sz_arrive','sz_to_futian','futian_wait','sz_hk_train','hk_customs','tst_arrive','tst_to_central','ifc_visit','central_walk','central_tour','lunch','central_to_ssp','ssp_shop','ssp_to_tst','rest',
       {type:'transport',mode:'mtr',label:'尖沙咀→中环（荃湾线）',time:'15min',path:[MTR.tst_mtr,MTR.admiralty,MTR.central]},
       {type:'stop',id:'toptown',time:'18:00-20:00'},
       {type:'transport',mode:'ferry',label:'中环→尖沙咀（天星小轮）',time:'10min',path:[[22.287,114.1585],[22.289,114.164],[22.2911,114.1695]]}]
